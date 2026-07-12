@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Announcement;
 use Illuminate\Support\Facades\Auth;
 class UserController extends Controller
 {
@@ -85,10 +86,13 @@ class UserController extends Controller
         } else {
             return response()->json(["message" => "User not found"], 404);
         }
-
         
-
-        return response()->json(["message" => "User found", "user" => $findUser], 200);
+        if ($findUser->role === "teacher" || $findUser->role === "admin"){
+             $findPost = Announcement::query()->where("teacher_id", "LIKE", "%{$findUser}%")->paginate(10);
+             return response()->json(["message" => "Successfully fetched announcements from user", "user" => $findUser, "announcement" => $findPost], 200);
+        } else{
+             return response()->json(["message" => "User doesnt have announcements"], 404);
+        }
         
       } catch (\Exception $e){
         return response()->json(["message" => "Error finding user", "error" => $e->getMessage()], 500);
