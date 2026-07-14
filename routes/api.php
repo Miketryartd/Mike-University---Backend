@@ -16,6 +16,8 @@ Route::middleware(['auth:sanctum'])->group(function (){
     Route::post('/logout', [UserController::class, 'Logout'])->name('logout');
     Route::post('/add-subject', [SubjectController::class, 'addSubject'])->name('add-subject');
     Route::get('/user', [UserController::class, 'User'])->name('user');
+
+    Route::get('/announcements', [AnnouncementController::class, 'GetAnnouncement'])->name('get-announcement');
     Route::post('/create-announcement', [AnnouncementController::class, 'CreateAnnouncement'])->name('create-announcement');   
     
     Route::post('/add-comment', [CommentController::class, "AddComment"])->name('add-comment');

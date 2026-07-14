@@ -7,4 +7,6 @@ use Illuminate\Support\Facades\Auth;
 class ClassController extends Controller
 {
    
+    
+    
 }
