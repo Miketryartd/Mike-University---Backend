@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 #[Fillable(["title", "teacher_id", "body"])]
-#[Hidden(["teacher_id"])]
+
 class Announcement extends Model
 {
  use HasApiTokens;
