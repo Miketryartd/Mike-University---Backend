@@ -91,7 +91,7 @@ class UserController extends Controller
              $findPost = Announcement::query()->where("teacher_id", "LIKE", "%{$findUser}%")->paginate(10);
              return response()->json(["message" => "Successfully fetched announcements from user", "user" => $findUser, "announcement" => $findPost], 200);
         } else{
-             return response()->json(["message" => "User doesnt have announcements"], 404);
+             return response()->json(["message" => "User doesnt have announcements", "user" => $findUser], 212);
         }
         
       } catch (\Exception $e){

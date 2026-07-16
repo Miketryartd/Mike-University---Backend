@@ -36,17 +36,19 @@ class AnnouncementController extends Controller
         }
     }
 
-    public function GetAnnouncement(Request $request){
+    
+    public function GetAnnouncement(int $page){
 
     try{
         $user = Auth::user();
         if (!$user || Auth::check() === false){
             return response()->json(["message" => "User is not authenticated"], 422);
         }
-        $announcement = Announcement::latest()->paginate(10);
-        return response()->json(["message" => "Announcements fetched succesfully", "announcements:" => $announcement], 200);
+        $announcement = Announcement::with("user")->latest()->paginate($page || 10);
+        return response()->json(["message" => "Announcements fetched succesfully", "announcements" => $announcement], 200);
     } catch (\Exception $e){
         return response()->json(["message" => $e->getMessage()], 500);
     }
     }
+
 }

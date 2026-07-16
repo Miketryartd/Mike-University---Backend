@@ -31,4 +31,22 @@ class CommentController extends Controller
             return response()->json(["message" => "Error adding comment", "error" => $e->getMessage()], 500);
         }
     }
+
+    public function EditComment(Request $request){
+         $validated = $request->validate([
+                "newComment" => "string|required|max:255"
+            ]);
+        try{
+        
+            $user = Auth::user();
+            if (!$user || Auth::check() === false){
+                return response()->json(["message" => "User not authenticated"], 422);
+
+            }
+            $editedComment = Comment::find("user_id", $user->id)->where("comment")->first();
+            return response()->json(["message" => "Succesfully edited comment", "comment" => $editedComment], 200);
+        } catch (\Exception $e){
+            return response()->json(["message" => "Error editing comment", "error" => $e->getMessage()], 500);
+        }
+    }
 }
