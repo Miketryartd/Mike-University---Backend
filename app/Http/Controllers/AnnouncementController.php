@@ -44,7 +44,7 @@ class AnnouncementController extends Controller
         if (!$user || Auth::check() === false){
             return response()->json(["message" => "User is not authenticated"], 422);
         }
-        $announcement = Announcement::with("user")->latest()->paginate($page || 10);
+        $announcement = Announcement::with("teacher_id")->latest()->paginate($page || 10);
         return response()->json(["message" => "Announcements fetched succesfully", "announcements" => $announcement], 200);
     } catch (\Exception $e){
         return response()->json(["message" => $e->getMessage()], 500);
