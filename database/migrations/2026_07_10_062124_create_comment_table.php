@@ -15,8 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string("comment");
             $table->enum("user_type", ["student", "teacher"])->default("user");
-            $table->foreignId("student_id")->constrained('users')->onDelete("cascade");
-            $table->foreignId("teacher_id")->constrained('users')->onDelete("cascade");
+             $table->foreignId("user_id")->constrained('users')->onDelete("cascade");
             $table->foreignId("announcement_id")->constrained('announcements')->onDelete("cascade");
             $table->timestamps();
         });

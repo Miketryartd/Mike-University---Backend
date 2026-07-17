@@ -11,17 +11,23 @@ class CommentController extends Controller
     public function AddComment(Request $request){
         try{
             $validated = $request->validate([
-                "comment" => "required|string"
+                "comment" => "required|string",
+                "announcement_id" => "required|exists|"
             ]);
 
             $user = Auth::user();
             if (!$user || Auth::check() === false){
                 return response()->json(["message" => "User is not authenticated to comment"], 422);
             }
-            $userType = User::find($user->id)->where("role");
+            $announcement = Announcement::find($validated["announcement_id"]);
+            if (!$announcement){
+                return response()->json(["message" => "Announcement not found"], 404);
+            }
+            $userType = $user->role;
             $newComment = Comment::create([
                 "user_type" => $userType,
-                
+                "user_id" => $user->id,
+                 "announcement_id" => $validated["announcement_id"],
                 "comment" => $validated["comment"]
             ]);
 
