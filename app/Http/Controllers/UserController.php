@@ -72,6 +72,30 @@ class UserController extends Controller
     }
    }
 
+   public function UserProfile(Request $request, int $id){
+    try {
+        
+        $user = User::find($id);
+        
+        
+        if (!$user) {
+            return response()->json(["message" => "User not found with this id"], 404);
+        }
+        
+       
+        return response()->json([
+            "message" => "Found user with this id", 
+            "user" => $user
+        ], 200);
+        
+    } catch (\Exception $e) {
+        return response()->json([
+            "message" => "Error searching for user", 
+            "error" => $e->getMessage()
+        ], 500);
+    }
+}
+
    public function User(Request $request){
       try{
         $user = Auth::user();
@@ -98,6 +122,8 @@ class UserController extends Controller
         return response()->json(["message" => "Error finding user", "error" => $e->getMessage()], 500);
       }
    }
+
+   
    
 
 
