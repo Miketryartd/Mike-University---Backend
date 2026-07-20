@@ -10,14 +10,15 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 
-#[Fillable(["class_name", "teacher_id", "students"])]
-#[Hidden(["created_at", "updated_at"])]
+#[Fillable(["class_name", "creator_id", "class_code"])]
+
 class Classes extends Model
 {
     use HasApiTokens;
-
-    public function teacher_id(): BelongsTo{
-        return $this->belongsTo(User::class);
+  protected $table = "class";
+    
+    public function user(): BelongsTo{
+        return $this->belongsTo(User::class, "creator_id");
     }
 
     public function students(): HasMany{

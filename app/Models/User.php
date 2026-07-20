@@ -7,6 +7,7 @@ use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Classes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Laravel\Sanctum\HasApiTokens;
@@ -35,6 +36,10 @@ class User extends Authenticatable
 
     public function announcements(): HasMany{
         return $this->hasMany(Announcement::class);
+    }
+    
+    public function classes(): HasMany {
+        return $this->hasMany(Classes::class);
     }
 
    

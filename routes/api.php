@@ -8,6 +8,7 @@ use App\Http\Controllers\GradesController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ClassController;
 
 //auth//
 Route::post('/register', [UserController::class, 'Register'])->name('register');
@@ -24,6 +25,10 @@ Route::middleware(['auth:sanctum'])->group(function (){
     
 
 
+    //classes
+    Route::post('/create-class', [ClassController::class, "CreateClass"])->name("create-class");
+
+    
     //subjects
       Route::post('/add-subject', [SubjectController::class, 'addSubject'])->name('add-subject');
 
