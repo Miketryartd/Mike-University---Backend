@@ -27,7 +27,7 @@ Route::middleware(['auth:sanctum'])->group(function (){
 
     //classes
     Route::post('/create-class', [ClassController::class, "CreateClass"])->name("create-class");
-
+    Route::get('/classes', [ClassController::class, "GetClasses"])->name("get-classes");
     
     //subjects
       Route::post('/add-subject', [SubjectController::class, 'addSubject'])->name('add-subject');
